@@ -1,0 +1,76 @@
+body {
+    background-image: url("../Additions/mainBackground.jpg");
+    background-size: cover;
+}
+.headerForm {
+    font-size: xx-large;
+}
+.welcomeHeader {
+    text-align: center;
+    font-family: "Times New Roman", Times, serif;
+    font-size: xx-large;
+}
+.singUpLink {
+    text-align: center;
+}
+.form {
+    width: 500pt;
+    text-align: center;
+    border: medium black;
+    background-color: #ecfcf5;
+}
+input[type=text]:focus {
+    background-color: lightblue;
+}
+input[type=password]:focus {
+    background-color: lightblue;
+}
+.link {
+    background: none;
+    color: blue;
+    border: none;
+    padding: 0;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.tableActions {
+    /*width: 500pt;*/
+    text-align: center;
+    background-color: #ecfcf5;
+}
+hr{
+    color: black;
+}
+.headerControlPanel {
+    background-color: #ecfcf5;
+    border: 3px black;
+    border-bottom-style: groove;
+}
+.ulBar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+.ilBar{
+    float: left;
+}
+
+.ilButton{
+    display: block;
+    background-color: #333;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    color: white;
+}
+
+.ilButton:hover{
+    background-color: #111;
+}
+
+.active{
+    background-color: #4CAF50;
+}

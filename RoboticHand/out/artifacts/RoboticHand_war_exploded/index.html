@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Authorization</title>
+    <link href="CSS/style.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+    <center>
+        <br />
+        <form action="" class="headerForm" method="post">
+            <div class="welcomeHeader">
+                <strong>Welcome to Robotic Hand Control Panel!</strong></div>
+        </form>
+
+        <br /><br /><br />
+
+        <form action="authorize" method="post" class="form">
+            <br />
+            <label id="Label1">User Name </label>
+            <label>
+                <input name="username" type="text" style="width: 162px" />
+            </label><br /><br />
+            Password&nbsp;&nbsp;&nbsp;
+            <label>
+                <input name="userpass" type="password" style="width: 162px" />
+            </label><br />
+            <br />
+            <center>
+                <input name="submitAuthorization" class="ilButton" type="submit" value="Log In" />
+            </center>
+            <br />
+        </form>
+
+        <form action="redirection" method="post" class="form">
+            <br />
+            <input type="hidden" name="where" value="signUp"/>
+            <input type="submit" value="Sign Up" class="link"/>
+            <br /><br />
+        </form>
+    </center>
+</body>
+</html>
