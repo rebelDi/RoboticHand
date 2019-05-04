@@ -2,6 +2,7 @@ package Servlets;
 
 import Additions.Message;
 import Presenters.MessagesPresenter;
+import Presenters.UserPresenter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -21,10 +23,8 @@ public class MessageInput extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        req.setAttribute("login", req.getParameter("login"));
-        req.setAttribute("rights", req.getParameter("rights"));
-
         String action = req.getParameter("action");
+        HttpSession httpSession = req.getSession();
 
         if("Ask".equals(action)){
             String newQuestion = req.getParameter("newQuestion");
@@ -32,7 +32,8 @@ public class MessageInput extends HttpServlet {
 
         }else if("Send".equals(action)){
             String answer = req.getParameter("answer");
-            String userLogin = req.getParameter("userLogin");
+
+            String userLogin = (String) httpSession.getAttribute("login");
             String userQuestion = req.getParameter("userQ");
             String status = "N";
             if(!answer.equals("No answer yet")){
@@ -43,11 +44,14 @@ public class MessageInput extends HttpServlet {
 
         ArrayList<Message> messages;
         RequestDispatcher view;
-        if("S".equals(req.getAttribute("rights"))){
+        String rights = (String) httpSession.getAttribute("rights");
+
+
+        if("S".equals(rights)){
             messages = MessagesPresenter.getAllMessages();
             req.setAttribute("messages", messages);
             view = req.getRequestDispatcher("Views/messagesA.jsp");
-        }else if("A".equals(req.getAttribute("rights"))){
+        }else if("A".equals(rights)){
             messages = MessagesPresenter.getMessagesForAdmin();
             req.setAttribute("messages", messages);
             view = req.getRequestDispatcher("Views/messagesA.jsp");

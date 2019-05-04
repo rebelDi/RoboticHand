@@ -1,5 +1,6 @@
 package Models;
 
+import Additions.DBConnection;
 import Additions.Message;
 import Additions.User;
 
@@ -25,11 +26,7 @@ public class MessagesModel {
     private static ArrayList<Message> formList(String query){
         ArrayList<Message> messageList = new ArrayList<Message>();
         try {
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/RoboticHand","root","23011998Diana");
-            PreparedStatement ps = con.prepareStatement(query);
-
-            ResultSet rs = ps.executeQuery();
+            ResultSet rs = new DBConnection().queryGet(query, new String[]{});
             while (rs.next()) {
                 String answer = rs.getString("answer");
                 if(answer == null){
@@ -46,14 +43,10 @@ public class MessagesModel {
 
     public static void updateAnswer(String user, String answer, String status, String question) {
         try {
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/RoboticHand?autoReconnect=true&useSSL=false","root","23011998Diana");
-            PreparedStatement ps = con.prepareStatement("UPDATE qanda SET answer = ?, status = ? WHERE user = ? AND question = ?");
-            ps.setString(1, answer);
-            ps.setString(2, status);
-            ps.setString(3, user);
-            ps.setString(4, question);
-            ps.executeUpdate();
+            String query = "UPDATE qanda SET answer = ?, status = ? WHERE user = ? AND question = ?";
+            String[] values = new String[]{answer, status, user, question};
+
+            new DBConnection().queryUpdate(query, values);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -61,14 +54,10 @@ public class MessagesModel {
 
     public static void updateAnswer(String login, String newQuestion) {
         try {
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/RoboticHand?autoReconnect=true&useSSL=false","root","23011998Diana");
-            PreparedStatement ps = con.prepareStatement("INSERT INTO qanda (user, question, answer, status) VALUES (?, ?, ?, ?); ");
-            ps.setString(1, login);
-            ps.setString(2, newQuestion);
-            ps.setString(3, null);
-            ps.setString(4, "N");
-            ps.executeUpdate();
+            String query = "INSERT INTO qanda (user, question, answer, status) VALUES (?, ?, ?, ?);";
+            String[] values = new String[]{login, newQuestion, null, "N"};
+
+            new DBConnection().queryUpdate(query, values);
         } catch (Exception e) {
             System.out.println(e);
         }

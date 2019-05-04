@@ -13,12 +13,10 @@
 <body>
 <center>
     <form action="headerRedirect" method="post">
-        <input type="hidden" name="login" value="<%=request.getAttribute("login")%>"/>
-        <input type="hidden" name="rights" value="<%=request.getAttribute("rights")%>"/>
         <ul class="ulBar">
             <li class="ilBar"><input name="action" type="submit" value="Control Panel" class="ilButton" /></li>
             <li class="ilBar"><input name="action" type="submit" value="User Info" class="ilButton" /></li>
-            <%if(request.getAttribute("rights").equals("S") || request.getAttribute("rights").equals("A")){ %>
+            <%if(session.getAttribute("rights").equals("S") || session.getAttribute("rights").equals("A")){ %>
             <li class="ilBar"><input name="action" type="submit" value="Admin" class="ilButton" /></li>
             <%}%>
             <li class="ilBar"><input name="action" type="button" value="Messages" class="ilButton active" /></li>
@@ -113,10 +111,6 @@
                 <br />
                 <tr style="text-align: center; background-color: white">
                     <form method="post" action="messageInput">
-                        <input type="hidden" name="login" value="<%=request.getAttribute("login")%>"/>
-                        <input type="hidden" name="rights" value="<%=request.getAttribute("rights")%>"/>
-                        <input type="hidden" id="userLogin" name="userLogin" value=""/>
-
                         <textarea id="newQuestion" name="newQuestion" cols="40" rows="20" value=""></textarea>
                         <br/>
                         <input name="action" type="submit" value="Ask" class="ilButton">

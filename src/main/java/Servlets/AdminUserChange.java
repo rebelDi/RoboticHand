@@ -2,6 +2,7 @@ package Servlets;
 
 import Additions.User;
 import Presenters.AdminPresenter;
+import Presenters.UserPresenter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -19,10 +21,11 @@ import java.util.ArrayList;
 public class AdminUserChange extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("login", req.getParameter("login"));
-        req.setAttribute("rights", req.getParameter("rights"));
         String login = req.getParameter("loginU");
         String rights = req.getParameter("whatToChange");
+
+        HttpSession httpSession = req.getSession();
+        String userRights = (String) httpSession.getAttribute("rights");
 
         if("Admin".equals(rights)){
             AdminPresenter.updateUser(login, "A");
@@ -32,11 +35,11 @@ public class AdminUserChange extends HttpServlet {
 
         ArrayList<User> users;
         RequestDispatcher view = req.getRequestDispatcher("index.html");
-        if(req.getParameter("rights").equals("S")) {
+        if(userRights.equals("S")) {
             users = AdminPresenter.getEveryoneExceptSuperAdmin();
             req.setAttribute("users", users);
             view = req.getRequestDispatcher("Views/adminMain.jsp");
-        }else if(req.getParameter("rights").equals("A")) {
+        }else if(userRights.equals("A")) {
             users = AdminPresenter.getAllUsers();
             req.setAttribute("users", users);
             view = req.getRequestDispatcher("Views/adminMain.jsp");
