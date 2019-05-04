@@ -1,5 +1,6 @@
 package Models;
 
+import Additions.DBConnection;
 import Additions.User;
 
 import java.sql.Connection;
@@ -21,11 +22,7 @@ public class AdminModel {
     private static ArrayList<User> formList(String query){
         ArrayList<User> userList = new ArrayList<User>();
         try {
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/RoboticHand","root","23011998Diana");
-            PreparedStatement ps = con.prepareStatement(query);
-
-            ResultSet rs = ps.executeQuery();
+            ResultSet rs = new DBConnection().queryGet(query, new String[]{});
             while (rs.next()) {
                 userList.add(new User(rs.getString("login"), rs.getString("name"),
                         rs.getString("surname"), rs.getString("rights").charAt(0)));

@@ -1,3 +1,15 @@
+$(document).on("click", "#checkConnection", function() { // When HTML DOM "click" event is invoked on element with ID "somebutton", execute the following function...
+    $.get("checkConnection", function(responseText) {   // Execute Ajax GET request on URL of "checkConnection" and execute the following function with Ajax response text...
+        $("#response").text(responseText);           // Locate HTML DOM element with ID "response" and set its text content with the response text.
+        $("#response").css("visibility", "visible");
+        if(responseText === "Connected"){
+            $("#response").css("background-color", "mediumspringgreen");
+        }else{
+            $("#response").css("background-color", "#fc5355");
+        }
+    });
+});
+
 function changeAvailability(result, i){
     if(result === 1) {
         if (document.getElementById("flag"+i).value === "0"){
@@ -8,6 +20,16 @@ function changeAvailability(result, i){
             document.getElementById("flag"+i).value = "0";
         }
     }
+}
+
+function popUpShow() {
+    const popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+}
+
+function popUpHide() {
+    const popup = document.getElementById("myPopup");
+    popup.classList.toggle("hide");
 }
 
 function changeRights(login, right) {

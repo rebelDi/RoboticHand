@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(
@@ -18,7 +19,6 @@ import java.io.IOException;
 public class UserInfoChange extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
-        request.setAttribute("rights", request.getParameter("rights"));
         String login = request.getParameter("loginU");
         String oldPassword = request.getParameter("oldPassword");
         String password = request.getParameter("password");
@@ -27,7 +27,9 @@ public class UserInfoChange extends HttpServlet {
         String surname = request.getParameter("surname");
         String answer = request.getParameter("answer");
 
-        String rightLogin = request.getParameter("login");
+        HttpSession httpSession = request.getSession();
+        String rightLogin = (String) httpSession.getAttribute("login");
+
         if(!password.equals(confirmPassword)){
             request.setAttribute("error", "Passwords are not matching!");
         }else if(!UserPresenter.validatePasswordAnswer(request.getParameter("login"), oldPassword, answer)) {
@@ -50,7 +52,7 @@ public class UserInfoChange extends HttpServlet {
             }
         }
         User user = UserPresenter.getAllInfoAboutUser(rightLogin);
-        request.setAttribute("login", rightLogin);
+        httpSession.setAttribute("login", rightLogin);
         request.setAttribute("user", user);
         RequestDispatcher view = request.getRequestDispatcher("Views/userInfo.jsp");
         view.forward(request, resp);

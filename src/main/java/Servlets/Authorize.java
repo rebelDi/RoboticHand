@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -16,30 +17,32 @@ import java.io.PrintWriter;
         urlPatterns = "/authorize"
 )
 public class Authorize extends HttpServlet {
-    public void doPost(HttpServletRequest request, HttpServletResponse response)
+    public void doPost(HttpServletRequest req, HttpServletResponse response)
             throws ServletException, IOException {
 
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 
-        String n = request.getParameter("username");
-        String p = request.getParameter("userpass");
+        String user = req.getParameter("username");
+        String password = req.getParameter("userpass");
 
-        if(UserPresenter.validate(n, p)){
-            request.setAttribute("login", n);
-            request.setAttribute("rights", UserPresenter.getRightsByLogin(n));
-            RequestDispatcher rd = request.getRequestDispatcher("mainredirect");
-            rd.forward(request,response);
+        if(UserPresenter.validate(user, password)){
+            HttpSession httpSession = req.getSession();
+            httpSession.setAttribute("login", user);
+            httpSession.setAttribute("rights", UserPresenter.getRightsByLogin(user));
+
+            req.setAttribute("action", "Control Panel");
+            RequestDispatcher rd = req.getRequestDispatcher("headerRedirect");
+            rd.forward(req,response);
         }else{
             response.setContentType("text/html");
-
             out.println("<script type=\"text/javascript\">");
             out.println("alert('Something is incorrect');");
             out.println("location='index.html';");
             out.println("</script>");
 
-            RequestDispatcher rd=request.getRequestDispatcher("index.html");
-            rd.include(request,response);
+            RequestDispatcher rd = req.getRequestDispatcher("index.html");
+            rd.include(req,response);
         }
         out.close();
     }

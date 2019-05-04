@@ -1,6 +1,7 @@
 package Models;
 
 import Additions.Action;
+import Additions.DBConnection;
 import Additions.PasswordSecurity;
 
 import java.sql.Connection;
@@ -13,15 +14,15 @@ public class ActionsModel {
     public static ArrayList<Action> getAllActions(){
         boolean status = false;
         try {
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/RoboticHand","root","23011998Diana");
-
-            PreparedStatement ps = con.prepareStatement("SELECT actionLeap, availability FROM robotichand.robotaction;");
+            String query = "SELECT actionLeap, handAction, leapMin, leapMax, servoDirection, " +
+                    "servoMin, servoMax, availability FROM robotichand.robotaction;";
+            ResultSet rs = new DBConnection().queryGet(query, new String[]{});
 
             ArrayList<Action> actions = new ArrayList<Action>();
-            ResultSet rs = ps.executeQuery();
             while (rs.next()){
-                actions.add(new Action(rs.getString("actionLeap"), rs.getInt("availability")));
+                actions.add(new Action(rs.getString("actionLeap"), rs.getInt("handAction"), rs.getInt("leapMin"),
+                        rs.getInt("leapMax"), rs.getInt("servoDirection"), rs.getInt("servoMin"),
+                        rs.getInt("servoMax"), rs.getInt("availability")));
             }
             return actions;
         } catch (Exception e) {

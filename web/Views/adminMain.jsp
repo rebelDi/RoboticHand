@@ -13,12 +13,10 @@
 <center>
 
     <form action="headerRedirect" method="post">
-        <input type="hidden" name="login" value="<%=request.getAttribute("login")%>"/>
-        <input type="hidden" name="rights" value="<%=request.getAttribute("rights")%>"/>
         <ul class="ulBar">
             <li class="ilBar"><input name="action" type="submit" value="Control Panel" class="ilButton" /></li>
             <li class="ilBar"><input name="action" type="submit" value="User Info" class="ilButton" /></li>
-            <%if(request.getAttribute("rights").equals("S") || request.getAttribute("rights").equals("A")){ %>
+            <%if(session.getAttribute("rights").equals("S") || session.getAttribute("rights").equals("A")){ %>
             <li class="ilBar"><input name="action" type="button" value="Admin" class="ilButton active" /></li>
             <%}%>
             <li class="ilBar"><input name="action" type="submit" value="Messages" class="ilButton" /></li>
@@ -59,8 +57,6 @@
                     <%= result.get(i).getSurname()%>
                 </td>
                 <form action="userChange" method="post">
-                    <input type="hidden" name="login" value="<%=request.getAttribute("login")%>"/>
-                    <input type="hidden" name="rights" value="<%=request.getAttribute("rights")%>"/>
                     <input type="hidden" name="loginU" value="<%=result.get(i).getLogin()%>">
                     <td style="alignment: center; width: auto">
                         <input name="whatToChange" type="submit" value="Admin" class="ilButton" style="text-align: center;

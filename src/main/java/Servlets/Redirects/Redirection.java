@@ -20,8 +20,6 @@ public class Redirection extends HttpServlet {
 
         String link = req.getParameter("where");
         RequestDispatcher view;
-        req.setAttribute("login", req.getAttribute("login"));
-        req.setAttribute("rights", req.getAttribute("rights"));
         if(link.equals("index")){
             view = req.getRequestDispatcher(link + ".html");
         }else {
