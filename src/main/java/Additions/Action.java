@@ -10,6 +10,11 @@ public class Action {
     private int servoMaximum;
     private int availability;
 
+    public Action(String name, int availability) {
+        this.name = name;
+        this.availability = availability;
+    }
+
     public Action(String name, int arduinoIndex, int leapMinimum, int leapMaximum, int servoDirection, int servoMinimum, int servoMaximum, int availability) {
         this.name = name;
         this.arduinoIndex = arduinoIndex;

@@ -38,11 +38,11 @@ public class AdminUserChange extends HttpServlet {
         if(userRights.equals("S")) {
             users = AdminPresenter.getEveryoneExceptSuperAdmin();
             req.setAttribute("users", users);
-            view = req.getRequestDispatcher("Views/adminMain.jsp");
+            view = req.getRequestDispatcher("Views/adminUsers.jsp");
         }else if(userRights.equals("A")) {
             users = AdminPresenter.getAllUsers();
             req.setAttribute("users", users);
-            view = req.getRequestDispatcher("Views/adminMain.jsp");
+            view = req.getRequestDispatcher("Views/adminUsers.jsp");
         }
         view.forward(req, resp);
     }

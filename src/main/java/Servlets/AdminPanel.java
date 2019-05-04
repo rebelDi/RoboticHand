@@ -25,7 +25,7 @@ public class AdminPanel extends HttpServlet {
         RequestDispatcher view;
         PrintWriter out = resp.getWriter();
         if(rights.equals("S") || rights.equals("A")) {
-            view = req.getRequestDispatcher("adminMain.jsp");
+            view = req.getRequestDispatcher("adminUsers.jsp");
         }else{
             out.println("<script type=\"text/javascript\">");
             out.println("alert('You are not an admin!');");
