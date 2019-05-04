@@ -36,19 +36,28 @@ public class HeaderRedirection extends HttpServlet {
         String rights = (String) httpSession.getAttribute("rights");
 
         RequestDispatcher view;
-        if("Admin".equals(action)){
+        if("Users".equals(action) || "Admin".equals(action)){
             ArrayList<User> users;
             if(httpSession.getAttribute("rights").equals("S")) {
                 users = AdminPresenter.getEveryoneExceptSuperAdmin();
                 req.setAttribute("users", users);
-                view = req.getRequestDispatcher("Views/adminMain.jsp");
+                view = req.getRequestDispatcher("Views/adminUsers.jsp");
             }else if(httpSession.getAttribute("rights").equals("A")) {
                 users = AdminPresenter.getAllUsers();
                 req.setAttribute("users", users);
-                view = req.getRequestDispatcher("Views/adminMain.jsp");
+                view = req.getRequestDispatcher("Views/adminUsers.jsp");
             }else{
+                saveActionsToSession(req);
+                view = req.getRequestDispatcher("Views/main.jsp");
+            }
+            view.forward(req, resp);
+        }else if("Imitator".equals(action)){
+            if(httpSession.getAttribute("rights").equals("S")) {
                 ArrayList<Action> actions = ActionsPresenter.getAllActions();
                 req.setAttribute("actions", actions);
+                view = req.getRequestDispatcher("Views/adminImitator.jsp");
+            }else{
+                saveActionsToSession(req);
                 view = req.getRequestDispatcher("Views/main.jsp");
                 view.forward(req, resp);
             }
@@ -78,17 +87,19 @@ public class HeaderRedirection extends HttpServlet {
                 view = req.getRequestDispatcher("Views/messagesU.jsp");
             }
             view.forward(req, resp);
-        }else if("Exit".equals(action)){
+        }else if("Exit".equals(action) || "Log In".equals(action)){
             view = req.getRequestDispatcher("index.html");
+            view.forward(req, resp);
+        }else if("Sign Up".equals(action)){
+            view = req.getRequestDispatcher("Views/signUp.html");
             view.forward(req, resp);
         }
     }
 
     static void saveActionsToSession(HttpServletRequest req) {
-        ArrayList<Action> actions = ActionsPresenter.getAllActions();
+        ArrayList<Action> actions = ActionsPresenter.getActionsNameAndAvailability();
 
         HttpSession session = req.getSession();
-
         Gson gson = new GsonBuilder().create();
         String actionsToJson = gson.toJson(actions);
         session.setAttribute("actions", actionsToJson);

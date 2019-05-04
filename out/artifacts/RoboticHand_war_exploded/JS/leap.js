@@ -101,16 +101,6 @@ Leap.loop(controllerOptions, function(frame) {
                 data: {actions: dataActions, value: dataValue, step: iteration},
                 cache: false
             });
-
-            $.get("checkConnection", function(responseText) {   // Execute Ajax GET request on URL of "checkConnection" and execute the following function with Ajax response text...
-                $("#response").text(responseText);           // Locate HTML DOM element with ID "response" and set its text content with the response text.
-                // $("#response").css("visibility", "visible");
-                if(responseText === "Connected"){
-                    $("#response").css("background-color", "mediumspringgreen");
-                }else{
-                    $("#response").css("background-color", "#fc5355");
-                }
-            });
         }
         // console.log(iteration);
     }
