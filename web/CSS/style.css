@@ -98,6 +98,26 @@ hr{
     background-color: #111;
 }
 
+.ulBar .submenu {
+    display: none;
+    position: absolute;
+    top: 45px;
+    left: 170px;
+    z-index: 10;
+    width: 150px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ulBar > li:hover .submenu {
+    display: block;
+}
+
+.adminButton {
+    width: 75px;
+}
+
 .active{
     background-color: #4CAF50;
 }
@@ -156,4 +176,33 @@ hr{
 @keyframes fadeIn {
     from {opacity: 0;}
     to {opacity:1 ;}
+}
+
+.servoInput {
+    width:15px;
+    text-align: center;
+}
+
+.coordsInput{
+    width:30px;
+    text-align: center;
+}
+
+td{
+    text-align: center;
+}
+
+.servoDirection {
+    text-align: center;
+    width: 75px;
+    height: 45px;
+    border: 1px groove black;
+    background-color: beige;
+}
+
+.submitImitatorChange {
+    background-color: lightgrey;
+    color: black;
+    border: 1px groove black;
+    text-align: center;
 }
