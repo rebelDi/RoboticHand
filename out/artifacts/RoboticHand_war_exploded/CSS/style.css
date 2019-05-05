@@ -190,6 +190,14 @@ hr{
 
 td{
     text-align: center;
+    margin: auto;
+    width: auto;
+    alignment: center;
+}
+
+td .ilButton{
+    float:none!important;
+    display:inline;
 }
 
 .servoDirection {
@@ -205,4 +213,11 @@ td{
     color: black;
     border: 1px groove black;
     text-align: center;
+}
+
+.warningMessage {
+    background-color: lemonchiffon;
+    font-size: large;
+    color: #111111;
+    margin: 50px;
 }
