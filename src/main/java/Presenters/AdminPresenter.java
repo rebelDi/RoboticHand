@@ -15,6 +15,10 @@ public class AdminPresenter {
         return AdminModel.getEveryoneExceptSuperAdmin();
     }
 
+    public static ArrayList<User> getUsersInWaitingList(){
+        return AdminModel.getUsersInWaitingList();
+    }
+
     public static void updateUser(String login, String rights){
         UserModel.updateUser(login, rights);
     }
