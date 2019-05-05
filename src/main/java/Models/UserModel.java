@@ -26,7 +26,7 @@ public class UserModel {
             String query = "INSERT INTO users (login, password, name, surname, rights, secretQuestion, secretAnswer) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?); ";
             String[] values = new String[]{login, PasswordSecurity.hashPassword(password), name, surname,
-                    "U", secretQuestion, PasswordSecurity.hashPassword(secretAnswer)};
+                    "0", secretQuestion, PasswordSecurity.hashPassword(secretAnswer)};
             new DBConnection().queryUpdate(query, values);
             return true;
         } catch (Exception e) {

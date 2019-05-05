@@ -1,6 +1,4 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="Additions.Action" %>
-<%@ page import="Additions.User" %>
 <%@ page import="Additions.Message" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,52 +55,52 @@
                     </tr>
 
                     <%for(int i = 0; i < messages.size(); i++){%>
-                        <tr style="text-align: center; background-color: white" onclick="showQuestion(<%=i%>)">
-                            <td>
-                                <input id="U<%=i%>" value="<%=messages.get(i).getUser()%>" readonly>
-                            </td>
-                            <td>
-                                <input id="Q<%=i%>" value="<%=messages.get(i).getQuestion()%>"readonly>
-                                <input type="hidden" id="A<%=i%>" value="<%=messages.get(i).getAnswer()%>">
-                            </td>
-                            <td>
-                                <input value="<%=messages.get(i).getStatus()%>" readonly>
-                            </td>
-                        </tr>
+                    <tr style="text-align: center; background-color: white" onclick="showQuestion(<%=i%>)">
+                        <td>
+                            <input id="U<%=i%>" value="<%=messages.get(i).getUser()%>" readonly>
+                        </td>
+                        <td>
+                            <input id="Q<%=i%>" value="<%=messages.get(i).getQuestion()%>"readonly>
+                            <input type="hidden" id="A<%=i%>" value="<%=messages.get(i).getAnswer()%>">
+                        </td>
+                        <td>
+                            <input value="<%=messages.get(i).getStatus()%>" readonly>
+                        </td>
+                    </tr>
                     <%}%>
                 </table>
             </td>
             <td>
-                <tr>
-                    <table width="59%" border="1" class="tableActions">
-                        <tr style="text-align: center; background-color: azure">
-                            Question
-                        </tr>
-                        <br />
-                        <tr style="text-align: center; background-color: white">
-                            <textarea id="question" cols="40" rows="20" value="" readonly></textarea>
-                        </tr>
-                    </table>
+        <tr>
+            <table width="59%" border="1" class="tableActions">
+                <tr style="text-align: center; background-color: azure">
+                    Question
                 </tr>
-                <tr>
-                    <table width="59%" border="1" class="tableActions">
-                        <tr style="text-align: center; background-color: azure">
-                            Answer
-                        </tr>
-                        <br />
-                        <tr style="text-align: center; background-color: white">
-                            <form method="post" action="messageInput">
-                                <input type="hidden" id="userLogin" name="userLogin" value=""/>
-                                <input type="hidden" id="userQ" name="userQ" value=""/>
+                <br />
+                <tr style="text-align: center; background-color: white">
+                    <textarea id="question" cols="40" rows="20" value="" readonly></textarea>
+                </tr>
+            </table>
+        </tr>
+        <tr>
+            <table width="59%" border="1" class="tableActions">
+                <tr style="text-align: center; background-color: azure">
+                    Answer
+                </tr>
+                <br />
+                <tr style="text-align: center; background-color: white">
+                    <form method="post" action="messageInput">
+                        <input type="hidden" id="userLogin" name="userLogin" value=""/>
+                        <input type="hidden" id="userQ" name="userQ" value=""/>
 
-                                <textarea id="answer" name="answer" cols="40" rows="20" value=""></textarea>
-                                <br/>
-                                <input name="action" type="submit" value="Send" class="ilButton">
-                            </form>
-                        </tr>
-                    </table>
+                        <textarea id="answer" name="answer" cols="40" rows="20" value=""></textarea>
+                        <br/>
+                        <input name="action" type="submit" value="Send" class="ilButton">
+                    </form>
                 </tr>
-            </td>
+            </table>
+        </tr>
+        </td>
         </tr>
     </table>
 

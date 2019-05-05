@@ -15,16 +15,6 @@ function popUpShow() {
     popup.classList.toggle("show");
 }
 
-function popUpHide() {
-    const popup = document.getElementById("myPopup");
-    popup.classList.toggle("hide");
-}
-
-function changeRights(login, right) {
-    alert(login);
-    document.getElementById(login).value = right;
-}
-
 function showQuestion(questionNum){
     document.getElementById("question").value = document.getElementById("Q" + questionNum).value;
     document.getElementById("answer").value = document.getElementById("A" + questionNum).value;

@@ -93,6 +93,17 @@ public class HeaderRedirection extends HttpServlet {
         }else if("Sign Up".equals(action)){
             view = req.getRequestDispatcher("Views/signUp.html");
             view.forward(req, resp);
+        }else if("waitingList".equals(action)){
+            ArrayList<User> users;
+            if(httpSession.getAttribute("rights").equals("S") || httpSession.getAttribute("rights").equals("A")) {
+                users = AdminPresenter.getUsersInWaitingList();
+                req.setAttribute("users", users);
+                view = req.getRequestDispatcher("Views/adminUsers.jsp");
+            }else{
+                saveActionsToSession(req);
+                view = req.getRequestDispatcher("Views/main.jsp");
+            }
+            view.forward(req, resp);
         }
     }
 

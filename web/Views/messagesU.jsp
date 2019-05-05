@@ -132,9 +132,6 @@
         </td>
         </tr>
     </table>
-
-    <form action="userInfoChange" method="post" class="form">
-    </form>
 </center>
 </body>
 </html>
