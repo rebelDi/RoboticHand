@@ -28,7 +28,7 @@ public class MessageInput extends HttpServlet {
 
         if("Ask".equals(action)){
             String newQuestion = req.getParameter("newQuestion");
-            MessagesPresenter.createQuestion(req.getParameter("login"), newQuestion);
+            MessagesPresenter.createQuestion((String) httpSession.getAttribute("login"), newQuestion);
 
         }else if("Send".equals(action)){
             String answer = req.getParameter("answer");
@@ -46,7 +46,6 @@ public class MessageInput extends HttpServlet {
         RequestDispatcher view;
         String rights = (String) httpSession.getAttribute("rights");
 
-
         if("S".equals(rights)){
             messages = MessagesPresenter.getAllMessages();
             req.setAttribute("messages", messages);
@@ -56,7 +55,7 @@ public class MessageInput extends HttpServlet {
             req.setAttribute("messages", messages);
             view = req.getRequestDispatcher("Views/messagesA.jsp");
         }else{
-            messages = MessagesPresenter.getUserMessages(req.getParameter("login"));
+            messages = MessagesPresenter.getUserMessages((String) httpSession.getAttribute("login"));
             req.setAttribute("messages", messages);
             view = req.getRequestDispatcher("Views/messagesU.jsp");
         }

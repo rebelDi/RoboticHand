@@ -82,7 +82,7 @@ public class HeaderRedirection extends HttpServlet {
                 req.setAttribute("messages", messages);
                 view = req.getRequestDispatcher("Views/messagesA.jsp");
             }else{
-                messages = MessagesPresenter.getUserMessages(req.getParameter("login"));
+                messages = MessagesPresenter.getUserMessages((String) httpSession.getAttribute("login"));
                 req.setAttribute("messages", messages);
                 view = req.getRequestDispatcher("Views/messagesU.jsp");
             }
