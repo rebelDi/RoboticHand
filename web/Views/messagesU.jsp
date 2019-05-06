@@ -48,9 +48,6 @@
                     <table width="59%" border="1" class="tableActions" id="tableActions">
                         <tr style="text-align: center; background-color: azure">
                             <td>
-                                User
-                            </td>
-                            <td>
                                 Questions
                             </td>
                             <td>
@@ -71,9 +68,6 @@
                         %>
                             <%for(int i = 0; i < messages.size(); i++){%>
                                 <tr style="text-align: center; background-color: white" onclick="showQuestionForUser(<%=i%>)">
-                                    <td>
-                                        <input id="U<%=i%>" value="<%=messages.get(i).getUser()%>" readonly>
-                                    </td>
                                     <td>
                                         <input id="Q<%=i%>" value="<%=messages.get(i).getQuestion()%>"readonly>
                                         <input type="hidden" id="A<%=i%>" value="<%=messages.get(i).getAnswer()%>">
