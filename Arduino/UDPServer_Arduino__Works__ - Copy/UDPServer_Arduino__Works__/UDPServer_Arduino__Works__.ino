@@ -31,28 +31,29 @@ EthernetUDP Udp;
 void setup() {
   pwm.begin();
   pwm.setPWMFreq(FREQUENCY);
-//  pwm.setPWM(0, 0, pulseWidth(60));
-//  pwm.setPWM(1, 0, pulseWidth(105));
-//  pwm.setPWM(2, 0, pulseWidth(45));
-//  pwm.setPWM(3, 0, pulseWidth(35));
-//////  pwm.setPWM(4, 0, pulseWidth(0));
-//////  pwm.setPWM(5, 0, pulseWidth(0));
-//  pwm.setPWM(6, 0, pulseWidth(0));
-//  pwm.setPWM(7, 0, pulseWidth(0));
-//  pwm.setPWM(10, 0, pulseWidth(0));
+  pwm.setPWM(0, 0, pulseWidth(60));
+  pwm.setPWM(1, 0, pulseWidth(105));
+  pwm.setPWM(2, 0, pulseWidth(45));
+  pwm.setPWM(3, 0, pulseWidth(35));
+////  pwm.setPWM(4, 0, pulseWidth(0));
+////  pwm.setPWM(5, 0, pulseWidth(0));
+  pwm.setPWM(6, 0, pulseWidth(0));
+  pwm.setPWM(7, 0, pulseWidth(0));
+  pwm.setPWM(10, 0, pulseWidth(0));
   
+ pinMode(A0, OUTPUT);
   
   // start the Ethernet and UDP:
   Ethernet.begin(mac,ip);
   Udp.begin(localPort);
-//  for(int i = 0; i < 11; i++){
-//    pinMode(i,OUTPUT);
-//  }
+  for(int i = 2; i < 7; i++){
+    pinMode(i,OUTPUT);
+  }
   Serial.begin(9600);
 }
 
 void loop() {  
-  delay(20);
+
   // if there's data available, read a packet
   int packetSize = Udp.parsePacket();
   if(packetSize){
@@ -75,10 +76,12 @@ void loop() {
       Udp.read(packetBuffer,UDP_TX_PACKET_MAX_SIZE);
       String data = packetBuffer;
       if(data == "Hello"){
+        digitalWrite(A0, HIGH);
         Udp.beginPacket(Udp.remoteIP(),Udp.remotePort());
         Udp.write("Connected");
         Udp.endPacket();
       }else{
+     
         StaticJsonDocument<200> doc;
         DeserializationError error = deserializeJson(doc, data);
         if (error) {
@@ -87,13 +90,14 @@ void loop() {
           Udp.beginPacket(Udp.remoteIP(),Udp.remotePort());
           Udp.write("Error");
           Udp.endPacket();
+          
           return;
         }
         JsonObject root = doc.as<JsonObject>();
         int servonum = (int)root["serv"];
         int angle = (int)root["val"];
         pwm.setPWM(servonum, 0, pulseWidth(angle));
-        // send a reply, to the IP address and port that sent us the packet we received
+  //      // send a reply, to the IP address and port that sent us the packet we received
         Udp.beginPacket(Udp.remoteIP(),Udp.remotePort());
         Udp.write(packetBuffer);
         Udp.endPacket();
