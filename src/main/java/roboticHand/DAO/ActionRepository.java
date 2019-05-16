@@ -1,16 +1,15 @@
 package roboticHand.DAO;
 
-//import org.springframework.data.jpa.repository.JpaRepository;
-//import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import roboticHand.Model.Action;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 
 @Repository
 public interface ActionRepository {
     void getAllActions(HttpServletRequest request);
     void sendData(String[] actions, String[] values, HttpServletRequest request);
-    String edit(Action action);
+    void edit(ArrayList<Action> actionsToEdit);
     Action getActionByName(String name);
 }

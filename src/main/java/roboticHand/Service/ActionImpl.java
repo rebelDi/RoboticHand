@@ -31,30 +31,52 @@ public class ActionImpl implements ActionRepository {
     }
 
     @Override
-    public String edit(Action action) {
-        if(getActionByName(action.getActionLeap()) == null){
-            return "Something went wrong";
-        }else {
-            Session session = openSession();
-            try {
-                Action tempAction = getActionByName(action.getActionLeap());
-                tempAction.setHandAction(action.getHandAction());
-                tempAction.setLeapMin(action.getLeapMin());
-                tempAction.setLeapMax(action.getLeapMax());
-                tempAction.setServoDirection(action.getServoDirection());
-                tempAction.setServoMin(action.getServoMin());
-                tempAction.setServoMax(action.getServoMax());
-                tempAction.setAvailability(action.getAvailability());
-                session.beginTransaction();
-                session.update(tempAction);
-                session.getTransaction().commit();
-            }catch (Exception e){
-                session.close();
-                return "Data is incorrect!";
+    public void edit(ArrayList<Action> actionsToEdit) {
+        Session session = openSession();
+        for(int i = 0; i < actionsToEdit.size(); i++){
+            if(getActionByName(actionsToEdit.get(i).getActionLeap()) != null){
+                try {
+//                    Action tempAction = getActionByName(actionsToEdit.get(i).getActionLeap());
+//                    tempAction.setHandAction(actionsToEdit.get(i).getHandAction());
+//                    tempAction.setLeapMin(actionsToEdit.get(i).getLeapMin());
+//                    tempAction.setLeapMax(actionsToEdit.get(i).getLeapMax());
+//                    tempAction.setServoDirection(actionsToEdit.get(i).getServoDirection());
+//                    tempAction.setServoMin(actionsToEdit.get(i).getServoMin());
+//                    tempAction.setServoMax(actionsToEdit.get(i).getServoMax());
+//                    tempAction.setAvailability(actionsToEdit.get(i).getAvailability());
+                    session.beginTransaction();
+                    session.update(actionsToEdit.get(i));
+                    session.getTransaction().commit();
+                }catch (Exception e){
+                    session.close();
+                }
             }
-            session.close();
         }
-        return "";
+        session.close();
+
+
+//        if(getActionByName(action.getActionLeap()) == null){
+//
+//        }else {
+//            Session session = openSession();
+//            try {
+//                Action tempAction = getActionByName(action.getActionLeap());
+//                tempAction.setHandAction(action.getHandAction());
+//                tempAction.setLeapMin(action.getLeapMin());
+//                tempAction.setLeapMax(action.getLeapMax());
+//                tempAction.setServoDirection(action.getServoDirection());
+//                tempAction.setServoMin(action.getServoMin());
+//                tempAction.setServoMax(action.getServoMax());
+//                tempAction.setAvailability(action.getAvailability());
+//                session.beginTransaction();
+//                session.update(tempAction);
+//                session.getTransaction().commit();
+//            }catch (Exception e){
+//                session.close();
+//
+//            }
+//            session.close();
+//        }
     }
 
     @Override
@@ -118,7 +140,7 @@ public class ActionImpl implements ActionRepository {
                 String sendData = gson.toJson(new ArduinoData(arduinoActions[i], vals[i]));
                 arduinoController.sendData(sendData);
                 try {
-                    Thread.sleep(150);
+                    Thread.sleep(50);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

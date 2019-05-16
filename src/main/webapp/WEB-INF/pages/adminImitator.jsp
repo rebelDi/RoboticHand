@@ -66,8 +66,6 @@
             <td>
                 Availability
             </td>
-            <td>
-            </td>
         </tr>
         <center>
             <%
@@ -78,7 +76,7 @@
             %>
             <tr>
                 <td>
-                    <%= result.get(i).getActionLeap()%>
+                    <p id="name<%=i%>"><%= result.get(i).getActionLeap()%></p>
                 </td>
                 <td>
                     <input id="ardInd<%=i%>" maxlength="2" value="<%= result.get(i).getHandAction()%>"  class="servoInput">
@@ -104,18 +102,16 @@
                 <td>
                     <input id="servoMax<%=i%>" maxlength="4" value="<%= result.get(i).getServoMax()%>" class="coordsInput">
                 </td>
-                <td id="avail<%=i%>" style="text-align: center; <%=(result.get(i).getAvailability() == 0 ? "background-color: hotpink;" : "background-color:#2bff36;")%>"
-                onclick="changeAvailability(<%=i%>)">
+                <td id="avail<%=i%>" style="text-align: center; <%=(result.get(i).getAvailability() == 0 ? "background-color: hotpink;" : "background-color:#2bff36;")%>" onclick="changeAvailability(<%=i%>)">
                 </td>
-                <td>
-                    <input class="submitImitatorChange" value="Change" type="button" onclick="sendChangedData(<%=i%>, '<%= result.get(i).getActionLeap()%>')">
-                </td>
-            </tr>
-            <%
-                }
-            %>
-        </center>
-    </table>
+      </tr>
+      <%
+          }
+      %>
+  </center>
+        <% System.out.println("size" + result.size());%>
+</table>
+<input style="alignment: center" class="ilButton buttonLaunch" value="Change" type="button" onclick="sendChangedData(<%=result.size()%>)">
 </center>
 </body>
 </html>

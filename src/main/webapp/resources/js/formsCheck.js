@@ -126,7 +126,7 @@ function checkNull(value) {
 
 function checkNullWithValue(value) {
     if(checkNull(document.getElementById(value))){
-        alert(value);
+        // alert(value);
         return "";
     }else{
         return document.getElementById(value).value;

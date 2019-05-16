@@ -1,6 +1,9 @@
 package roboticHand.Controllers;
 
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +15,9 @@ import roboticHand.Tools.Encryptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 @Controller
 @RequestMapping("/admin")
@@ -71,25 +76,36 @@ public class AdminController {
         return "adminImitator";
     }
 
-    @PostMapping(value = "/actionEdit")
-    @ResponseBody
-    public String editAction(@RequestBody String[] newData, HttpServletRequest request){
-        Action action = new Action();
-        action.setActionLeap(newData[0]);
-        action.setHandAction(Integer.parseInt(newData[1]));
-        action.setLeapMin(Integer.parseInt(newData[2]));
-        action.setLeapMax(Integer.parseInt(newData[3]));
-        action.setServoDirection(Integer.parseInt(newData[4]));
-        action.setServoMin(Integer.parseInt(newData[5]));
-        action.setServoMax(Integer.parseInt(newData[6]));
-        action.setAvailability(Integer.parseInt(newData[7]));
 
-        String error = actionRepository.edit(action);
-        if (error.equals("")) {
-            actionRepository.getAllActions(request);
-            return "";
-        } else {
-            return error;
+    @RequestMapping(value = "/actionEdit", method = RequestMethod.POST)
+    public String editAction(@RequestParam String actions, HttpServletRequest request){
+        ArrayList<Action> actionsToEdit = new ArrayList<>();
+        JsonObject jsonObject = new Gson().fromJson(actions, JsonObject.class);
+
+        //Get actions name
+        JsonArray jsonActionsName = jsonObject.get("actionsName").getAsJsonArray();
+        JsonArray jsonServoNumbers= jsonObject.get("servosNum").getAsJsonArray();
+        JsonArray jsonLeapMin = jsonObject.get("leapsMin").getAsJsonArray();
+        JsonArray jsonLeapMax = jsonObject.get("leapsMax").getAsJsonArray();
+        JsonArray jsonServoDirections = jsonObject.get("servosD").getAsJsonArray();
+        JsonArray jsonServoMins = jsonObject.get("servosMin").getAsJsonArray();
+        JsonArray jsonServoMax = jsonObject.get("servosMax").getAsJsonArray();
+        JsonArray jsonAvailabilities = jsonObject.get("avails").getAsJsonArray();
+
+        for(int i = 0; i < jsonActionsName.size(); i++){
+            Action action = new Action();
+            action.setActionLeap(jsonActionsName.get(i).getAsString());
+            action.setHandAction(Integer.parseInt(jsonServoNumbers.get(i).getAsString()));
+            action.setLeapMin(Integer.parseInt(jsonLeapMin.get(i).getAsString()));
+            action.setLeapMax(Integer.parseInt(jsonLeapMax.get(i).getAsString()));
+            action.setServoDirection(Integer.parseInt(jsonServoDirections.get(i).getAsString()));
+            action.setServoMin(Integer.parseInt(jsonServoMins.get(i).getAsString()));
+            action.setServoMax(Integer.parseInt(jsonServoMax.get(i).getAsString()));
+            action.setAvailability(Integer.parseInt(jsonAvailabilities.get(i).getAsString()));
+            actionsToEdit.add(action);
         }
+        actionRepository.edit(actionsToEdit);
+        actionRepository.getAllActions(request);
+        return "admin/actionEdit";
     }
 }

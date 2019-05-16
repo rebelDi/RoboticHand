@@ -1,6 +1,7 @@
 package roboticHand.Controllers;
 
 import roboticHand.Model.Action;
+import roboticHand.Tools.RS232Protocol;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -22,7 +23,7 @@ public class ArduinoController {
             byte[] b=(dataQuery.getBytes());
             byte[] receiveData = new byte[1024];
 
-            InetAddress ip = InetAddress.getByName("192.168.0.111");
+            InetAddress ip = InetAddress.getByName("192.168.0.123");
 
             DatagramSocket datagram = new DatagramSocket();
 

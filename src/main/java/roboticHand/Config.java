@@ -2,16 +2,8 @@ package roboticHand;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
-import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-//import org.thymeleaf.spring5.SpringTemplateEngine;
-//import org.thymeleaf.spring5.view.ThymeleafViewResolver;
-//import org.thymeleaf.templatemode.TemplateMode;
-//import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
-//import org.thymeleaf.templateresolver.ITemplateResolver;
-//import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import roboticHand.DAO.ActionRepository;
 import roboticHand.DAO.QuestionRepository;
 import roboticHand.DAO.UserRepository;
