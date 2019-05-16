@@ -15,10 +15,10 @@
         <version>2.1.2.RELEASE</version>
     </parent>
 
-    <properties>
-        <java.version>9.0</java.version>
-        <bootstrap.version>4.2.1</bootstrap.version>
-    </properties>
+<!--    <properties>-->
+<!--        <java.version>7.0</java.version>-->
+<!--        <bootstrap.version>4.2.1</bootstrap.version>-->
+<!--    </properties>-->
 
     <dependencies>
 <!--        <dependency>-->
@@ -57,6 +57,14 @@
 <!--            <groupId>mysql</groupId>-->
 <!--            <artifactId>mysql-connector-java</artifactId>-->
 <!--        </dependency>-->
+
+        <dependency>
+            <groupId>org.rxtx</groupId>
+            <artifactId>rxtx</artifactId>
+            <version>2.1.7</version>
+        </dependency>
+
+
 
         <dependency>
             <groupId>mysql</groupId>
