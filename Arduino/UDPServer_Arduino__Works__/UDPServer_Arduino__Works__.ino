@@ -14,8 +14,8 @@ Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver(0x41);
 // Enter a MAC address and IP address for your controller below.
 // The IP address will be dependent on your local network:
 byte mac[] = {0x90,0xA2,0xDA,0x0D,0x8B,0x8F};
-IPAddress ip(192, 168, 0, 111);
-IPAddress ip1(192, 168, 0, 101);
+IPAddress ip(192, 168, 0, 123);
+IPAddress ip1(192, 168, 0, 1);
 EthernetServer server(8032);
 unsigned int localPort = 8032;  
 boolean incoming = 0;
@@ -52,6 +52,7 @@ void setup() {
 }
 
 void loop() {  
+  Serial.print("Hi!");
   delay(20);
   // if there's data available, read a packet
   int packetSize = Udp.parsePacket();
